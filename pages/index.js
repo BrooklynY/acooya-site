@@ -1,8 +1,8 @@
-import Layout from "../components/layout/Layout";
-import Hero from "../components/sections/Hero";
+import Layout from "../components/Layout/Layout";
+import Hero from "../components/Sections/Hero";
 import ServicesPreview from "../components/sections/ServicesPreview";
-import Process from "../components/sections/Process";
-import CTA from "../components/sections/CTA";
+import Process from "../components/Sections/Process";
+import CTA from "../components/Sections/CTA";
 
 export default function Home() {
   return (
