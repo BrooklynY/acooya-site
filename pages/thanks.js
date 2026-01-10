@@ -1,4 +1,4 @@
-import Layout from "../components/layout/Layout";
+import Layout from "../components/Layout/Layout";
 import Section from "../components/ui/Section";
 import { Kicker, H1, Lead } from "../components/ui/Type";
 import Button from "../components/ui/Button";
