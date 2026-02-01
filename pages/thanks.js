@@ -7,7 +7,7 @@ export default function Thanks() {
   return (
     <Layout>
       <Section className="pt-10 md:pt-14">
-        <div className="rounded-3xl border border-neutral-line bg-white p-8 shadow-soft md:p-12">
+        <div className="rounded-3xl border border-line bg-white p-8 shadow-soft md:p-12">
           <Kicker>Message sent</Kicker>
           <H1 className="mt-4">Thanks — I’ll get back to you shortly.</H1>
           <Lead className="mt-6">

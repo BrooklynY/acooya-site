@@ -10,7 +10,7 @@ export default function Process() {
   
         <div className="mt-10 grid gap-4 md:grid-cols-4">
           {steps.map((s, i) => (
-            <div key={s} className="rounded-3xl border border-neutral-line bg-white p-6 shadow-soft">
+            <div key={s} className="rounded-3xl border border-line bg-white p-6 shadow-soft">
               <p className="text-sm text-neutral-subtle">Step {i + 1}</p>
               <h3 className="mt-2 text-lg font-semibold">{s}</h3>
               <p className="mt-2 text-sm text-neutral-subtle">

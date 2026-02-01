@@ -2,103 +2,178 @@ import Layout from "../components/Layout/Layout";
 import Section from "../components/ui/Section";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import { Kicker, H1, Lead, H2 } from "../components/ui/Type";
+import { Kicker, H1, Lead, Body } from "../components/ui/Type";
+
+function Field({ label, name, type = "text", placeholder, required = true }) {
+  return (
+    <div>
+      <label htmlFor={name} className="block text-sm font-medium text-ink">
+        {label}
+      </label>
+      <input
+        id={name}
+        name={name}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className={[
+          "mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink",
+          "placeholder:text-muted/70",
+          "outline-none transition",
+          "focus:border-ink/20 focus:ring-2 focus:ring-brand/20",
+        ].join(" ")}
+      />
+    </div>
+  );
+}
 
 export default function Contact() {
   return (
     <Layout>
+      {/* Hero */}
       <Section className="pt-10 md:pt-14">
-        <div className="rounded-3xl border border-neutral-line bg-white p-8 shadow-soft md:p-12">
+        <div className="rounded-3xl border border-line bg-panel/80 p-8 shadow-soft backdrop-blur md:p-12">
           <Kicker>Contact</Kicker>
-          <H1 className="mt-4">Book a call or send a message</H1>
+          <H1 className="mt-4">Book a discovery call.</H1>
           <Lead className="mt-6">
-            A short call is usually the fastest way to align on your goals, constraints, and next steps.
-            If you prefer, send a message and I’ll get back to you.
+            A short conversation to clarify outcomes, map constraints, and recommend the smallest high-leverage first step.
           </Lead>
         </div>
       </Section>
 
       <Section className="pt-0">
-        <div className="grid gap-4 md:grid-cols-5">
-          <Card className="p-8 md:col-span-3">
-            <H2>Send a message</H2>
-            <p className="mt-3 text-sm text-neutral-subtle">
-              Your message goes directly to Acooya’s inbox.
+        <div className="grid gap-4 md:grid-cols-12">
+          {/* Form */}
+          <Card className="p-8 md:col-span-7 md:p-10">
+            <p className="text-sm font-medium text-muted">Send a note</p>
+            <h2 className="mt-3 font-serif text-2xl tracking-tight text-ink md:text-3xl">
+              Tell us what you’re working on
+            </h2>
+            <p className="mt-3 text-sm text-muted">
+              We’ll reply within 1–2 business days. If it’s urgent, mention a deadline in your message.
             </p>
 
             <form
-              className="mt-8 space-y-4"
+              className="mt-8 space-y-5"
               action="https://formspree.io/f/xgovpvzl"
               method="POST"
             >
-              <input type="hidden" name="_subject" value="New enquiry — Acooya Consulting" />
-              <input type="hidden" name="_format" value="plain" />
-
-              <div>
-                <label className="text-sm font-semibold">Name</label>
-                <input
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field
+                  label="Name"
                   name="name"
-                  required
-                  className="mt-2 w-full rounded-2xl border border-neutral-line bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-gold/50"
-                  placeholder="Your name"
+                  placeholder="Your full name"
                 />
-              </div>
-
-              <div>
-                <label className="text-sm font-semibold">Email</label>
-                <input
-                  name="email"
+                <Field
+                  label="Email"
+                  name="_replyto"
                   type="email"
-                  required
-                  className="mt-2 w-full rounded-2xl border border-neutral-line bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-gold/50"
                   placeholder="you@email.com"
                 />
               </div>
 
+              <Field
+                label="Organisation"
+                name="organisation"
+                placeholder="Company / team (optional)"
+                required={false}
+              />
+
               <div>
-                <label className="text-sm font-semibold">What do you need help with?</label>
+                <label htmlFor="topic" className="block text-sm font-medium text-ink">
+                  What do you need help with?
+                </label>
+                <select
+                  id="topic"
+                  name="topic"
+                  className={[
+                    "mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink",
+                    "outline-none transition",
+                    "focus:border-ink/20 focus:ring-2 focus:ring-brand/20",
+                  ].join(" ")}
+                  defaultValue="Operating model"
+                >
+                  <option>Operating model</option>
+                  <option>Delivery enablement</option>
+                  <option>Reporting & decision support</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-ink">
+                  Message
+                </label>
                 <textarea
+                  id="message"
                   name="message"
+                  rows={6}
                   required
-                  className="mt-2 min-h-[140px] w-full rounded-2xl border border-neutral-line bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-brand-gold/50"
-                  placeholder="Brief context, what success looks like, and any constraints."
+                  placeholder="A few lines about your goals, constraints, timelines, and what success looks like."
+                  className={[
+                    "mt-2 w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm text-ink",
+                    "placeholder:text-muted/70",
+                    "outline-none transition",
+                    "focus:border-ink/20 focus:ring-2 focus:ring-brand/20",
+                  ].join(" ")}
                 />
               </div>
 
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Button type="submit">Send message</Button>
-                <Button href="/services" variant="secondary">Explore services</Button>
-              </div>
+              <input type="hidden" name="_subject" value="Acooya Consulting — Contact form submission" />
 
-              <p className="pt-2 text-xs text-neutral-subtle">
-                Typical response time: within 1–2 business days.
-              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button type="submit" variant="brand">
+                  Send message
+                </Button>
+                <p className="text-xs text-muted">
+                  By submitting, you agree we may contact you about your enquiry.
+                </p>
+              </div>
             </form>
           </Card>
 
-          <Card className="p-8 md:col-span-2">
-            <H2>What happens next</H2>
-            <div className="mt-6 space-y-4 text-sm text-neutral-subtle">
+          {/* Right panel */}
+          <Card className="p-8 md:col-span-5 md:p-10">
+            <p className="text-sm font-medium text-muted">What to expect</p>
+            <h3 className="mt-3 font-serif text-2xl tracking-tight text-ink">
+              Calm, structured, outcome-led.
+            </h3>
+
+            <div className="mt-6 space-y-3">
               {[
-                { t: "1) Quick call", d: "Understand your context and what success looks like." },
-                { t: "2) Clarity on scope", d: "We align on outcomes, approach, and timeline." },
-                { t: "3) Start with momentum", d: "We begin with a focused first step that reduces ambiguity." },
+                {
+                  t: "Discovery call (20–30 min)",
+                  d: "Clarify outcomes, constraints, stakeholders, and what’s blocking progress.",
+                },
+                {
+                  t: "Recommendation",
+                  d: "We’ll suggest the smallest high-leverage step — operating model, delivery rhythm, or reporting uplift.",
+                },
+                {
+                  t: "Clear artefacts",
+                  d: "Expect practical outputs: forums & cadence, plan & sequencing, dashboards and decision packs.",
+                },
               ].map((x) => (
-                <div key={x.t} className="rounded-3xl border border-neutral-line bg-neutral-bg p-5">
-                  <p className="font-semibold text-neutral-ink">{x.t}</p>
-                  <p className="mt-2">{x.d}</p>
+                <div key={x.t} className="rounded-3xl border border-line bg-bg p-5">
+                  <p className="text-sm font-semibold text-ink">{x.t}</p>
+                  <p className="mt-2 text-sm text-muted">{x.d}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-8 rounded-3xl bg-gradient-to-r from-brand-blue via-brand-green to-brand-gold p-6 text-white shadow-lift">
-              <p className="text-sm font-semibold">Prefer a call?</p>
-              <p className="mt-2 text-sm text-white/90">
-                You can add your booking link (Calendly) here later.
-              </p>
-              <div className="mt-4">
-                <Button href="#" variant="secondary">Add booking link later</Button>
-              </div>
+            <div className="mt-8 rounded-3xl border border-line bg-gradient-to-r from-brand/10 to-brand2/10 p-6">
+              <p className="text-sm font-semibold text-ink">Prefer email?</p>
+              <Body className="mt-2">
+                You can reach us at{" "}
+                <a className="underline decoration-line hover:text-ink" href="mailto:brooklyn_yang@hotmail.com">
+                  brooklyn_yang@hotmail.com
+                </a>
+                .
+              </Body>
+            </div>
+
+            <div className="mt-6 text-xs text-muted">
+              Typical engagements are short, focused sprints (2–6 weeks). Remote and on-site options available.
             </div>
           </Card>
         </div>

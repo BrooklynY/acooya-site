@@ -1,32 +1,46 @@
+import Link from "next/link";
+
+const base =
+  "inline-flex items-center justify-center rounded-2xl font-medium transition " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(var(--brand),0.45)] focus-visible:ring-offset-2 " +
+  "ring-offset-[rgb(var(--bg))] disabled:opacity-50 disabled:pointer-events-none";
+
+const sizes = {
+  sm: "h-9 px-4 text-sm",
+  md: "h-11 px-5 text-sm",
+  lg: "h-12 px-6 text-base",
+};
+
+const variants = {
+  brand:
+    "bg-ink text-white shadow-soft hover:shadow-lift hover:translate-y-[-1px] active:translate-y-0",
+  secondary:
+    "border border-line bg-panel text-ink shadow-soft hover:shadow-lift hover:bg-bg",
+  ghost:
+    "text-ink hover:bg-bg",
+};
+
 export default function Button({
   href,
-  variant = "primary",
-  size = "md",
   children,
+  variant = "brand",
+  size = "md",
   className = "",
   ...props
 }) {
-  const base =
-    "inline-flex items-center justify-center rounded-2xl font-semibold transition " +
-    "focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/70 focus-visible:ring-offset-2 " +
-    "active:translate-y-0";
+  const cls = [base, sizes[size], variants[variant], className].join(" ");
 
-  const sizes = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-5 py-3 text-sm",
-    lg: "px-6 py-3.5 text-base",
-  };
+  if (href) {
+    return (
+      <Link href={href} className={cls} {...props}>
+        {children}
+      </Link>
+    );
+  }
 
-  const variants = {
-    primary:
-      "bg-neutral-ink text-white shadow-soft hover:shadow-lift hover:-translate-y-[1px]",
-    secondary:
-      "border border-neutral-line bg-white text-neutral-ink hover:bg-neutral-bg",
-    ghost: "text-neutral-ink hover:bg-neutral-bg",
-  };
-
-  const cls = `${base} ${sizes[size]} ${variants[variant]} ${className}`;
-
-  if (href) return <a href={href} className={cls} {...props}>{children}</a>;
-  return <button className={cls} {...props}>{children}</button>;
+  return (
+    <button className={cls} {...props}>
+      {children}
+    </button>
+  );
 }

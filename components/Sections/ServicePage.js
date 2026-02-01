@@ -34,7 +34,7 @@ export default function ServicePage({
           <ul className="mt-4 space-y-3 text-sm text-neutral-subtle">
             {whoFor.map((x) => (
               <li key={x} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand" />
                 <span>{x}</span>
               </li>
             ))}
@@ -46,7 +46,7 @@ export default function ServicePage({
           <ul className="mt-4 space-y-3 text-sm text-neutral-subtle">
             {problems.map((x) => (
               <li key={x} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-rose" />
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand2" />
                 <span>{x}</span>
               </li>
             ))}
@@ -73,7 +73,7 @@ export default function ServicePage({
           <ul className="mt-4 space-y-3 text-sm text-neutral-subtle">
             {deliverables.map((x) => (
               <li key={x} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-green" />
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand3" />
                 <span>{x}</span>
               </li>
             ))}
@@ -85,7 +85,7 @@ export default function ServicePage({
           <ul className="mt-4 space-y-3 text-sm text-neutral-subtle">
             {outcomes.map((x) => (
               <li key={x} className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand" />
                 <span>{x}</span>
               </li>
             ))}

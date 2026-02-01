@@ -1,9 +1,13 @@
-export default function Card({ className = "", children }) {
+export default function Card({ children, className = "" }) {
   return (
-    <div className={`rounded-3xl border border-neutral-line bg-white shadow-soft ${className}`}>
+    <div
+      className={[
+        "card", // from globals.css
+        "transition",
+        className,
+      ].join(" ")}
+    >
       {children}
     </div>
   );
 }
-
-  

@@ -1,126 +1,176 @@
 import Layout from "../components/Layout/Layout";
+import Section from "../components/ui/Section";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
+import { Kicker, H1, H2, Lead, Body } from "../components/ui/Type";
+
+function Pillar({ tag, title, desc, bullets, href }) {
+  return (
+    <div className="group relative">
+      {/* soft gradient edge on hover */}
+      <div className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-r from-brand/25 to-brand2/20 opacity-0 blur-sm transition group-hover:opacity-100" />
+
+      <Card className="relative p-8 md:p-10 transition group-hover:shadow-lift">
+        <span className="rounded-full border border-line bg-bg px-3 py-1 text-[11px] text-muted">
+          {tag}
+        </span>
+
+        <h3 className="mt-4 font-serif text-2xl tracking-tight text-ink">
+          {title}
+        </h3>
+
+        <Body className="mt-4">{desc}</Body>
+
+        <div className="mt-6 grid gap-2 md:grid-cols-2">
+          {bullets.map((b) => (
+            <div key={b} className="flex items-start gap-2">
+              <span className="mt-1.5 h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand2" />
+              <span className="text-sm text-muted">{b}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-7">
+          <Button href={href} variant="ghost" size="sm" className="px-0">
+            View details →
+          </Button>
+        </div>
+      </Card>
+    </div>
+  );
+}
 
 export default function Services() {
   const pillars = [
     {
-      title: "Transformation & Operating Model",
-      tag: "Priority #1",
-      desc: "Design practical ways of working that scale — governance, decision rights, delivery rhythm, and adoption.",
-      outcomes: ["Clear operating rhythm", "Aligned decision-making", "Reduced delivery friction", "Stronger accountability"],
+      tag: "Primary",
+      title: "Operating Model & Transformation",
+      desc:
+        "Design practical ways of working that scale — governance, decision rights, delivery rhythm, and adoption.",
+      bullets: [
+        "Decision rights & forums",
+        "Ways of working blueprint",
+        "Governance cadence",
+        "Clear accountability",
+      ],
       href: "/services/operating-model",
     },
     {
+      tag: "Core",
       title: "Delivery Enablement",
-      tag: "Priority #2",
-      desc: "Turn ambiguity into execution — structure, stakeholder alignment, prioritisation, and momentum.",
-      outcomes: ["Execution clarity", "Better prioritisation", "Improved stakeholder alignment", "Faster decisions"],
+      desc:
+        "Turn ambiguity into execution — alignment, prioritisation, and momentum with a calm, repeatable cadence.",
+      bullets: [
+        "Execution planning",
+        "Dependency management",
+        "Stakeholder alignment",
+        "Delivery rhythm",
+      ],
       href: "/services/delivery-enablement",
     },
     {
+      tag: "Core",
       title: "Reporting & Decision Support",
-      tag: "Priority #3",
-      desc: "Decision-grade insights — KPI frameworks, dashboards, and reporting leaders trust.",
-      outcomes: ["KPI clarity", "Executive dashboards", "Operational visibility", "Data-led governance"],
+      desc:
+        "Decision-grade insights — KPI frameworks, dashboards, and reporting leaders trust to drive action.",
+      bullets: [
+        "KPI definitions & owners",
+        "Executive dashboards",
+        "Decision packs",
+        "Reporting governance",
+      ],
       href: "/services/reporting-insights",
-    },
-    {
-      title: "Aviation Domain Consulting",
-      tag: "Optional niche",
-      desc: "When relevant, accelerate outcomes using deep airline technology and operating context.",
-      outcomes: ["Faster onboarding", "Reduced risk", "Better dependency management", "Practical governance uplift"],
-      href: "/services/aviation",
     },
   ];
 
   return (
     <Layout>
-      <section className="mx-auto max-w-6xl px-6 pt-14 md:pt-20">
-        <p className="text-sm text-neutral-subtle">Services</p>
-        <h1 className="mt-3 font-display text-5xl tracking-tight md:text-6xl">
-          What Acooya delivers
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg text-neutral-subtle">
-          Acooya works with leaders to simplify complexity, establish a practical operating rhythm, and deliver
-          measurable outcomes — supported by reporting that makes progress visible.
-        </p>
+      {/* Hero */}
+      <Section className="pt-10 md:pt-14">
+        <div className="rounded-3xl border border-line bg-panel/80 p-8 shadow-soft backdrop-blur md:p-12">
+          <Kicker>Services</Kicker>
+          <H1 className="mt-4">What Acooya delivers</H1>
+          <Lead className="mt-6">
+            Acooya works with leaders to simplify complexity, establish a practical
+            operating rhythm, and deliver measurable outcomes — supported by
+            reporting that makes progress visible.
+          </Lead>
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button href="/contact">Book a call</Button>
-          <Button href="/outcomes" variant="secondary">
-            See outcomes
-          </Button>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button href="/contact" variant="brand">
+              Book a call
+            </Button>
+            <Button href="/outcomes" variant="secondary">
+              See outcomes
+            </Button>
+          </div>
         </div>
-      </section>
+      </Section>
 
-      <section className="mx-auto mt-14 max-w-6xl px-6">
-        <div className="grid gap-4 md:grid-cols-2">
+      {/* Service pillars */}
+      <Section className="pt-0">
+        <div className="flex items-end justify-between gap-6">
+          <div>
+            <p className="text-sm font-medium text-muted">Core services</p>
+            <H2 className="mt-3">Designed for clarity, momentum, and trust</H2>
+          </div>
+
+          <span className="hidden md:inline rounded-full border border-line bg-bg px-3 py-1 text-[11px] text-muted">
+            Typical engagement: 2–6 weeks
+          </span>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
           {pillars.map((p) => (
-            <Card key={p.title} className="p-8">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-semibold text-brand-blue">{p.tag}</p>
-                  <h2 className="mt-2 font-display text-2xl tracking-tight">{p.title}</h2>
-                </div>
-              </div>
-
-              <p className="mt-4 text-sm text-neutral-subtle">{p.desc}</p>
-
-              <div className="mt-6 grid gap-2 text-sm text-neutral-subtle md:grid-cols-2">
-                {p.outcomes.map((o) => (
-                  <div key={o} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-2 w-2 rounded-full bg-brand-green" />
-                    <span>{o}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-7">
-                <Button href={p.href} variant="secondary" size="sm">
-                  View details →
-                </Button>
-              </div>
-            </Card>
+            <Pillar key={p.title} {...p} />
           ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="mx-auto mt-20 max-w-6xl px-6">
-        <div className="rounded-3xl border border-neutral-line bg-white p-10 shadow-soft">
-          <p className="text-sm text-neutral-subtle">Engagement models</p>
-          <h2 className="mt-3 font-display text-3xl tracking-tight">Flexible delivery, clear outputs.</h2>
+      {/* Engagement models */}
+      <Section>
+        <div className="rounded-3xl border border-line bg-panel/80 p-9 shadow-soft backdrop-blur md:p-12">
+          <p className="text-sm font-medium text-muted">Engagement models</p>
+          <H2 className="mt-3">Flexible delivery. Clear outputs.</H2>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
               {
-                t: "Fixed-scope Sprint",
-                d: "A focused engagement to solve a defined problem and deliver concrete artefacts.",
+                t: "Fixed-scope sprint",
+                d:
+                  "A focused engagement to solve a defined problem and deliver concrete artefacts.",
               },
               {
-                t: "Embedded Support",
-                d: "Short-term uplift to help a team deliver — cadence, governance, reporting, facilitation.",
+                t: "Embedded support",
+                d:
+                  "Short-term uplift to help a team deliver — cadence, governance, reporting, facilitation.",
               },
               {
-                t: "Advisory Retainer",
-                d: "Ongoing support for leaders — prioritisation, delivery oversight, and decision support.",
+                t: "Advisory retainer",
+                d:
+                  "Ongoing support for leaders — prioritisation, delivery oversight, and decision support.",
               },
             ].map((x) => (
-              <div key={x.t} className="rounded-3xl border border-neutral-line bg-neutral-bg p-6">
-                <h3 className="font-semibold">{x.t}</h3>
-                <p className="mt-2 text-sm text-neutral-subtle">{x.d}</p>
+              <div
+                key={x.t}
+                className="rounded-3xl border border-line bg-bg p-6"
+              >
+                <h3 className="font-semibold text-ink">{x.t}</h3>
+                <p className="mt-2 text-sm text-muted">{x.d}</p>
               </div>
             ))}
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/contact">Discuss your needs</Button>
+            <Button href="/contact" variant="brand">
+              Discuss your needs
+            </Button>
             <Button href="/about" variant="secondary">
               About Acooya
             </Button>
           </div>
         </div>
-      </section>
+      </Section>
     </Layout>
   );
 }
