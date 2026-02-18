@@ -1,176 +1,112 @@
 import Layout from "../components/Layout/Layout";
-import Section from "../components/ui/Section";
+import PageHeader from "../components/ui/PageHeader";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import { Kicker, H1, H2, Lead, Body } from "../components/ui/Type";
-
-function Pillar({ tag, title, desc, bullets, href }) {
-  return (
-    <div className="group relative">
-      {/* soft gradient edge on hover */}
-      <div className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-r from-brand/25 to-brand2/20 opacity-0 blur-sm transition group-hover:opacity-100" />
-
-      <Card className="relative p-8 md:p-10 transition group-hover:shadow-lift">
-        <span className="rounded-full border border-line bg-bg px-3 py-1 text-[11px] text-muted">
-          {tag}
-        </span>
-
-        <h3 className="mt-4 font-serif text-2xl tracking-tight text-ink">
-          {title}
-        </h3>
-
-        <Body className="mt-4">{desc}</Body>
-
-        <div className="mt-6 grid gap-2 md:grid-cols-2">
-          {bullets.map((b) => (
-            <div key={b} className="flex items-start gap-2">
-              <span className="mt-1.5 h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand2" />
-              <span className="text-sm text-muted">{b}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-7">
-          <Button href={href} variant="ghost" size="sm" className="px-0">
-            View details →
-          </Button>
-        </div>
-      </Card>
-    </div>
-  );
-}
 
 export default function Services() {
-  const pillars = [
+  const services = [
     {
-      tag: "Primary",
       title: "Operating Model & Transformation",
-      desc:
-        "Design practical ways of working that scale — governance, decision rights, delivery rhythm, and adoption.",
-      bullets: [
-        "Decision rights & forums",
-        "Ways of working blueprint",
-        "Governance cadence",
-        "Clear accountability",
-      ],
+      desc: "Governance, decision rights, cadence, ways of working — practical, scalable, adoption-ready.",
+      bullets: ["Decision forums & rights", "Operating rhythm", "Ways of working blueprint", "Adoption support"],
       href: "/services/operating-model",
+      tag: "Core service",
     },
     {
-      tag: "Core",
       title: "Delivery Enablement",
-      desc:
-        "Turn ambiguity into execution — alignment, prioritisation, and momentum with a calm, repeatable cadence.",
-      bullets: [
-        "Execution planning",
-        "Dependency management",
-        "Stakeholder alignment",
-        "Delivery rhythm",
-      ],
+      desc: "Turn ambiguity into execution — alignment, prioritisation, momentum, and a calm delivery cadence.",
+      bullets: ["Execution plan & sequencing", "Stakeholder alignment", "Dependency clarity", "Delivery controls"],
       href: "/services/delivery-enablement",
+      tag: "Core service",
     },
     {
-      tag: "Core",
       title: "Reporting & Decision Support",
-      desc:
-        "Decision-grade insights — KPI frameworks, dashboards, and reporting leaders trust to drive action.",
-      bullets: [
-        "KPI definitions & owners",
-        "Executive dashboards",
-        "Decision packs",
-        "Reporting governance",
-      ],
+      desc: "Decision-grade insights — KPI frameworks, dashboards, and reporting rhythms leaders trust.",
+      bullets: ["KPI framework", "Exec dashboards", "Decision packs", "Automation opportunities"],
       href: "/services/reporting-insights",
+      tag: "Core service",
     },
   ];
 
   return (
     <Layout>
-      {/* Hero */}
-      <Section className="pt-10 md:pt-14">
-        <div className="rounded-3xl border border-line bg-panel/80 p-8 shadow-soft backdrop-blur md:p-12">
-          <Kicker>Services</Kicker>
-          <H1 className="mt-4">What Acooya delivers</H1>
-          <Lead className="mt-6">
-            Acooya works with leaders to simplify complexity, establish a practical
-            operating rhythm, and deliver measurable outcomes — supported by
-            reporting that makes progress visible.
-          </Lead>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/contact" variant="brand">
-              Book a call
-            </Button>
-            <Button href="/outcomes" variant="secondary">
-              See outcomes
-            </Button>
+      <PageHeader
+        kicker="Services"
+        title="What Acooya delivers"
+        lead="Acooya works with leaders to simplify complexity, establish a practical operating rhythm, and deliver measurable outcomes — supported by reporting that makes progress visible."
+        primaryCta={{ href: "/contact", label: "Book a call" }}
+        secondaryCta={{ href: "/outcomes", label: "See outcomes" }}
+        aside={
+          <div className="space-y-4">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted">
+              Engagement models
+            </p>
+            <div className="space-y-3">
+              {[
+                { t: "Fixed-scope sprint", d: "Solve a defined problem and deliver concrete artefacts." },
+                { t: "Embedded support", d: "Short-term uplift to help a team deliver with rhythm + clarity." },
+                { t: "Advisory retainer", d: "Ongoing support for leaders — prioritisation and decision support." },
+              ].map((x) => (
+                <div key={x.t} className="rounded-2xl border border-line bg-bg p-3">
+                  <p className="text-sm font-semibold text-ink">{x.t}</p>
+                  <p className="mt-1 text-sm text-muted">{x.d}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </Section>
+        }
+      />
 
-      {/* Service pillars */}
-      <Section className="pt-0">
-        <div className="flex items-end justify-between gap-6">
-          <div>
-            <p className="text-sm font-medium text-muted">Core services</p>
-            <H2 className="mt-3">Designed for clarity, momentum, and trust</H2>
-          </div>
+      <section className="mx-auto mt-10 max-w-6xl px-5 md:mt-12 md:px-8">
+        <div className="grid gap-4 md:grid-cols-3">
+          {services.map((s) => (
+            <Card key={s.title} hover className="p-7">
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted">
+                {s.tag}
+              </p>
+              <h2 className="mt-3 text-lg font-semibold tracking-tight text-ink">{s.title}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{s.desc}</p>
 
-          <span className="hidden md:inline rounded-full border border-line bg-bg px-3 py-1 text-[11px] text-muted">
-            Typical engagement: 2–6 weeks
-          </span>
-        </div>
+              <ul className="mt-5 space-y-2 text-sm text-muted">
+                {s.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-brand to-brand2" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {pillars.map((p) => (
-            <Pillar key={p.title} {...p} />
+              <div className="mt-6">
+                <Button href={s.href} variant="secondary" size="sm" iconRight="→">
+                  View details
+                </Button>
+              </div>
+            </Card>
           ))}
         </div>
-      </Section>
+      </section>
 
-      {/* Engagement models */}
-      <Section>
-        <div className="rounded-3xl border border-line bg-panel/80 p-9 shadow-soft backdrop-blur md:p-12">
-          <p className="text-sm font-medium text-muted">Engagement models</p>
-          <H2 className="mt-3">Flexible delivery. Clear outputs.</H2>
+      <section className="mx-auto mt-14 max-w-6xl px-5 md:mt-16 md:px-8">
+        <Card className="p-8 md:p-10">
+          <p className="text-sm font-medium text-muted">How engagements work</p>
+          <h2 className="mt-3 font-serif text-3xl tracking-tight text-ink md:text-4xl">
+            Calm delivery, clear outputs.
+          </h2>
+          <p className="mt-4 max-w-[70ch] text-sm leading-relaxed text-muted">
+            We start with clarity: what leaders need to decide, what constraints exist, and what “good” looks like.
+            Then we design the operating rhythm and artefacts that make delivery predictable and progress visible.
+          </p>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              {
-                t: "Fixed-scope sprint",
-                d:
-                  "A focused engagement to solve a defined problem and deliver concrete artefacts.",
-              },
-              {
-                t: "Embedded support",
-                d:
-                  "Short-term uplift to help a team deliver — cadence, governance, reporting, facilitation.",
-              },
-              {
-                t: "Advisory retainer",
-                d:
-                  "Ongoing support for leaders — prioritisation, delivery oversight, and decision support.",
-              },
-            ].map((x) => (
-              <div
-                key={x.t}
-                className="rounded-3xl border border-line bg-bg p-6"
-              >
-                <h3 className="font-semibold text-ink">{x.t}</h3>
-                <p className="mt-2 text-sm text-muted">{x.d}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-wrap gap-3">
             <Button href="/contact" variant="brand">
               Discuss your needs
             </Button>
-            <Button href="/about" variant="secondary">
-              About Acooya
+            <Button href="/methodology" variant="secondary">
+              View methodology
             </Button>
           </div>
-        </div>
-      </Section>
+        </Card>
+      </section>
     </Layout>
   );
 }

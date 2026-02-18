@@ -1,12 +1,6 @@
 export default function Card({ children, className = "" }) {
   return (
-    <div
-      className={[
-        "card", // from globals.css
-        "transition",
-        className,
-      ].join(" ")}
-    >
+    <div className={["card", "transition", className].join(" ")}>
       {children}
     </div>
   );

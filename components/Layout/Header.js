@@ -1,134 +1,128 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import IconButton from "../ui/IconButton";
+import Container from "../ui/Container";
+
+function isActivePath(asPath, href) {
+  if (href === "/") return asPath === "/";
+  return asPath === href || asPath.startsWith(href + "/");
+}
 
 export default function Header() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  // Close mobile menu on resize to desktop
+  // close menu on route change
   useEffect(() => {
-    function onResize() {
-      if (window.innerWidth >= 768) setOpen(false);
-    }
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+    const handle = () => setOpen(false);
+    router.events?.on("routeChangeComplete", handle);
+    return () => router.events?.off("routeChangeComplete", handle);
+  }, [router.events]);
 
-  const NavLink = ({ href, children }) => (
-    <Link
-      href={href}
-      className="text-sm text-muted transition hover:text-ink"
-      onClick={() => setOpen(false)}
-    >
-      {children}
-    </Link>
-  );
+  const links = [
+    { href: "/services", label: "Services" },
+    { href: "/outcomes", label: "Outcomes" },
+    { href: "/methodology", label: "Methodology" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+  ];
+
+  const NavLink = ({ href, label }) => {
+    const active = isActivePath(router.asPath, href);
+    return (
+      <Link
+        href={href}
+        className={[
+          "text-sm transition",
+          active ? "text-ink" : "text-muted hover:text-ink",
+        ].join(" ")}
+        aria-current={active ? "page" : undefined}
+        onClick={() => setOpen(false)}
+      >
+        <span className="relative">
+          {label}
+          {active && (
+            <span className="absolute -bottom-2 left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-brand to-brand2" />
+          )}
+        </span>
+      </Link>
+    );
+  };
 
   return (
-    <header className="sticky top-0 z-50">
-      {/* subtle top hairline + frosted panel */}
-      <div className="border-b border-line bg-bg/70 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <div className="flex items-center justify-between py-4">
-            {/* Brand */}
-            <Link
-              href="/"
-              className="group flex items-center gap-3"
-              onClick={() => setOpen(false)}
-            >
-              <div className="grid h-10 w-10 place-items-center rounded-2xl border border-line bg-panel shadow-soft transition group-hover:shadow-lift">
-                <Image
-                  src="/brand/acooya.png"
-                  alt="Acooya Consulting"
-                  width={26}
-                  height={26}
-                  priority
-                />
-              </div>
-              <div className="leading-tight">
-                <div className="flex items-baseline gap-2">
-                  <span className="font-semibold tracking-tight text-ink">
-                    Acooya
-                  </span>
-                  <span className="hidden text-xs text-muted md:inline">
-                    Consulting
-                  </span>
-                </div>
-                <span className="hidden text-[11px] text-muted md:block">
-                  Calm, outcome-led transformation
-                </span>
-              </div>
-            </Link>
+    <header className="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur">
+      <Container>
+        <div className="flex items-center justify-between py-4">
+          <Link
+            href="/"
+            className="flex items-center gap-3"
+            onClick={() => setOpen(false)}
+          >
+            <Image
+              src="/brand/acooya.png"
+              alt="Acooya Consulting"
+              width={34}
+              height={34}
+              priority
+            />
+            <span className="font-semibold tracking-tight text-ink">Acooya</span>
+          </Link>
 
-            {/* Desktop nav */}
-            <nav className="hidden items-center gap-7 md:flex">
-              <NavLink href="/services">Services</NavLink>
-              <NavLink href="/outcomes">Outcomes</NavLink>
-              <NavLink href="/about">About</NavLink>
-              <NavLink href="/contact">Contact</NavLink>
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-7 md:flex">
+            {links.slice(0, 4).map((l) => (
+              <NavLink key={l.href} href={l.href} label={l.label} />
+            ))}
+          </nav>
 
-              {/* small brand chips */}
-              <div className="ml-2 hidden items-center gap-2 lg:flex">
-                <span className="h-2 w-2 rounded-full bg-brand" />
-                <span className="h-2 w-2 rounded-full bg-brand2" />
-                <span className="h-2 w-2 rounded-full bg-ink/50" />
-              </div>
-            </nav>
-
-            {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-3">
-              <Button href="/contact" variant="brand" size="sm">
-                Book a call
-              </Button>
-            </div>
-
-            {/* Mobile controls */}
-            <div className="flex items-center gap-2 md:hidden">
-              <Button href="/contact" variant="brand" size="sm">
-                Book
-              </Button>
-              <IconButton
-                ariaLabel={open ? "Close menu" : "Open menu"}
-                onClick={() => setOpen((v) => !v)}
-              >
-                {open ? "✕" : "☰"}
-              </IconButton>
-            </div>
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <NavLink href="/contact" label="Contact" />
+            <Button href="/contact" size="sm" variant="brand">
+              Book a call
+            </Button>
           </div>
 
-          {/* Mobile menu */}
-          {open && (
-            <div className="pb-4 md:hidden">
-              <div className="rounded-3xl border border-line bg-panel p-5 shadow-lift">
-                <div className="flex flex-col gap-4">
-                  <NavLink href="/services">Services</NavLink>
-                  <NavLink href="/outcomes">Outcomes</NavLink>
-                  <NavLink href="/about">About</NavLink>
-                  <NavLink href="/contact">Contact</NavLink>
-                </div>
+          {/* Mobile controls */}
+          <div className="flex items-center gap-2 md:hidden">
+            <Button href="/contact" size="sm" variant="brand">
+              Book
+            </Button>
+            <IconButton
+              ariaLabel={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? "✕" : "☰"}
+            </IconButton>
+          </div>
+        </div>
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Button href="/contact" variant="brand">
-                    Book a call
-                  </Button>
-                  <Button href="/services" variant="secondary">
-                    Explore
-                  </Button>
-                </div>
+        {/* Mobile menu */}
+        {open && (
+          <div className="pb-4 md:hidden">
+            <div className="rounded-3xl border border-line bg-panel p-5 shadow-soft">
+              <div className="flex flex-col gap-4">
+                {links.map((l) => (
+                  <NavLink key={l.href} href={l.href} label={l.label} />
+                ))}
+              </div>
 
-                <div className="mt-6 flex items-center gap-2 text-[11px] text-muted">
-                  <span className="h-2 w-2 rounded-full bg-brand" />
-                  <span className="h-2 w-2 rounded-full bg-brand2" />
-                  <span className="h-2 w-2 rounded-full bg-ink/50" />
-                  <span className="ml-2">Clear decisions • Calm delivery • Visible progress</span>
-                </div>
+              <div className="mt-6 flex gap-3">
+                <Button href="/contact" variant="brand">
+                  Book a call
+                </Button>
+                <Button href="/services" variant="secondary">
+                  Explore
+                </Button>
               </div>
             </div>
-          )}
-        </div>
-      </div>
+          </div>
+        )}
+      </Container>
     </header>
   );
 }
+

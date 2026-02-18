@@ -1,96 +1,83 @@
 import Link from "next/link";
 import Image from "next/image";
+import Container from "../ui/Container";
+
+function FooterLink({ href, children }) {
+  return (
+    <Link className="block text-muted hover:text-ink transition" href={href}>
+      {children}
+    </Link>
+  );
+}
 
 export default function Footer() {
   return (
     <footer className="mt-20 border-t border-line bg-panel">
-      <div className="mx-auto max-w-6xl px-5 py-14 md:px-8">
+      <Container className="py-12">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          {/* Brand + positioning */}
           <div className="max-w-md">
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-2xl border border-line bg-bg shadow-soft">
-                <Image src="/brand/acooya.png" alt="Acooya" width={26} height={26} />
-              </div>
-              <div>
-                <p className="font-semibold text-ink">Acooya Consulting</p>
-                <p className="text-[11px] text-muted">Calm, outcome-led transformation</p>
-              </div>
+              <Image
+                src="/brand/acooya.png"
+                alt="Acooya Consulting"
+                width={34}
+                height={34}
+              />
+              <p className="font-semibold text-ink">Acooya Consulting</p>
             </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Operating model first, then delivery enablement, then decision-grade reporting —
-              so leaders can simplify complexity and make progress visible.
+            <p className="mt-3 text-sm text-muted leading-relaxed">
+              Calm, outcome-led transformation — operating model first, then delivery,
+              then decision-grade insights.
             </p>
 
-            <div className="mt-5 flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-brand" />
-              <span className="h-2.5 w-2.5 rounded-full bg-brand2" />
-              <span className="h-2.5 w-2.5 rounded-full bg-ink/50" />
-              <span className="ml-2 text-xs text-muted">Clarity • Momentum • Visibility</span>
+            <div className="mt-5 flex gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-brand to-brand2" />
+              <span className="h-2.5 w-2.5 rounded-full bg-ink/60" />
+              <span className="h-2.5 w-2.5 rounded-full bg-line" />
             </div>
+
+            <p className="mt-5 text-xs text-muted">
+              Sydney • Remote-ready • AU-wide
+            </p>
           </div>
 
-          {/* Links */}
           <div className="grid grid-cols-2 gap-10 text-sm md:grid-cols-3">
-            <div className="space-y-3">
+            <div className="space-y-2">
               <p className="font-semibold text-ink">Company</p>
-              <Link className="block text-muted transition hover:text-ink" href="/about">
-                About
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/contact">
-                Contact
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/outcomes">
-                Outcomes
-              </Link>
+              <FooterLink href="/about">About</FooterLink>
+              <FooterLink href="/contact">Contact</FooterLink>
+              <FooterLink href="/methodology">Methodology</FooterLink>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               <p className="font-semibold text-ink">Services</p>
-              <Link className="block text-muted transition hover:text-ink" href="/services">
-                Overview
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/services/operating-model">
-                Operating model
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/services/delivery-enablement">
-                Delivery enablement
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/services/reporting-insights">
-                Reporting & insights
-              </Link>
+              <FooterLink href="/services">Overview</FooterLink>
+              <FooterLink href="/services/operating-model">Operating model</FooterLink>
+              <FooterLink href="/services/delivery-enablement">Delivery enablement</FooterLink>
+              <FooterLink href="/services/reporting-insights">Reporting & insights</FooterLink>
             </div>
 
-            <div className="space-y-3">
-              <p className="font-semibold text-ink">Get started</p>
-              <Link className="block text-muted transition hover:text-ink" href="/contact">
-                Book a call
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/services">
-                What we do
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/privacy">
-                Privacy
-              </Link>
-              <Link className="block text-muted transition hover:text-ink" href="/terms">
-                Terms
-              </Link>
+            <div className="space-y-2">
+              <p className="font-semibold text-ink">Insights</p>
+              <FooterLink href="/outcomes">Outcomes</FooterLink>
+              <FooterLink href="/contact">Book a call</FooterLink>
             </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Acooya Consulting. All rights reserved.</p>
-          <p className="text-[11px]">
-            Built with calm intent •{" "}
-            <Link href="/contact" className="underline decoration-line/60 underline-offset-4 hover:text-ink">
-              talk to us
+        <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Acooya Consulting</p>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="hover:text-ink transition">
+              Privacy
             </Link>
-          </p>
+            <Link href="/terms" className="hover:text-ink transition">
+              Terms
+            </Link>
+          </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

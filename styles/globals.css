@@ -14,7 +14,7 @@
   --ink: 11 18 32;        /* main text */
   --muted: 90 98 114;     /* secondary text */
   --line: 226 232 240;    /* borders */
-  --wash: 250 251 252;    /* subtle surface wash */
+  --wash: 255 255 255;    /* subtle surface wash */
 
   /* accents (safe defaults; Tailwind maps to brand + brand2) */
   --brand: 26 92 255;     /* electric blue */

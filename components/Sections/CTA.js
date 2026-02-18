@@ -1,84 +1,100 @@
-import Button from "../ui/Button";
-import Section from "../ui/Section";
 import Card from "../ui/Card";
+import Button from "../ui/Button";
 
-export default function CTA() {
+function StepCard({ n, title, desc }) {
   return (
-    <Section>
-      <div className="relative overflow-hidden">
-        {/* subtle background wash */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 left-1/4 h-[420px] w-[420px] rounded-full bg-brand/15 blur-3xl" />
-          <div className="absolute top-10 right-[10%] h-[380px] w-[380px] rounded-full bg-brand2/12 blur-3xl" />
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-line to-transparent" />
+    <div className="group relative">
+      {/* subtle gradient edge on hover */}
+      <div className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-r from-brand/30 to-brand2/25 opacity-0 blur-sm transition group-hover:opacity-100" />
+      <Card className="relative p-7 transition duration-200 group-hover:shadow-lift">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium uppercase tracking-[0.22em] text-muted">
+            Step {n}
+          </span>
+          <span className="rounded-full border border-line bg-bg px-3 py-1 text-[11px] text-muted">
+            Method
+          </span>
         </div>
 
-        <Card className="relative p-8 md:p-12">
-          <div className="grid gap-10 md:grid-cols-12 md:items-center">
-            <div className="md:col-span-8">
-              <p className="text-sm font-medium text-muted">Next step</p>
-              <h2 className="mt-3 font-serif text-3xl tracking-tight text-ink md:text-4xl">
-                Ready to simplify complexity and move faster?
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-                Book a short call. We’ll clarify your outcomes, identify the smallest high-leverage first step, and
-                recommend the right service path — operating model, delivery enablement, or decision-grade reporting.
-              </p>
+        <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink">
+          {title}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-muted">{desc}</p>
 
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Button href="/contact" variant="brand">
-                  Book a call
-                </Button>
-                <Button href="/services" variant="secondary">
-                  Explore services
-                </Button>
-              </div>
+        <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-line to-transparent" />
 
-              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted">
-                <span className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                  20–30 min discovery
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand2" />
-                  Clear outputs & next steps
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-ink/50" />
-                  No obligation
-                </span>
-              </div>
-            </div>
-
-            <div className="md:col-span-4 md:flex md:justify-end">
-              <div className="w-full rounded-3xl border border-line bg-bg p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-                  Typical engagement
-                </p>
-                <p className="mt-3 text-sm font-semibold text-ink">
-                  2–6 week sprint
-                </p>
-                <p className="mt-2 text-sm text-muted">
-                  Discovery → blueprint → delivery plan → reporting rhythm.
-                </p>
-
-                <div className="mt-5 space-y-2 text-sm">
-                  {[
-                    "Operating model + governance",
-                    "Delivery cadence + alignment",
-                    "Dashboards leaders trust",
-                  ].map((x) => (
-                    <div key={x} className="flex items-start gap-3">
-                      <span className="mt-2 h-2 w-2 rounded-full bg-gradient-to-r from-brand to-brand2" />
-                      <span className="text-muted">{x}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </div>
-    </Section>
+        <p className="mt-4 text-xs text-muted">
+          Output: clear artefacts + a repeatable rhythm
+        </p>
+      </Card>
+    </div>
   );
 }
+
+export default function Process() {
+  const steps = [
+    {
+      n: "01",
+      title: "Diagnose",
+      desc: "Clarify outcomes, constraints, stakeholders, and delivery friction. Identify what is slowing decisions and execution.",
+    },
+    {
+      n: "02",
+      title: "Design",
+      desc: "Define decision rights, governance, roles, and a practical operating rhythm. Produce artefacts teams can actually use.",
+    },
+    {
+      n: "03",
+      title: "Enable",
+      desc: "Embed cadence, templates, and reporting so the approach sticks — and progress becomes visible and decision-grade.",
+    },
+  ];
+
+  return (
+    <section className="mx-auto mt-16 max-w-6xl px-5 md:mt-20 md:px-8">
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-2xl">
+          <p className="text-sm font-medium text-muted">How we work</p>
+          <h2 className="mt-3 font-serif text-[clamp(1.9rem,3.5vw,2.6rem)] leading-[1.08] tracking-tight text-ink">
+            A calm, repeatable method — designed to land outcomes.
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            You get clarity, structure, and decision-grade visibility — without heavy process.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Button href="/methodology" variant="secondary">
+            View methodology
+          </Button>
+          <Button href="/contact" variant="brand">
+            Discuss your situation
+          </Button>
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-4 md:mt-10 md:grid-cols-3">
+        {steps.map((s) => (
+          <StepCard key={s.n} {...s} />
+        ))}
+      </div>
+
+      {/* Editorial divider + proof hint */}
+      <div className="mt-10 rounded-3xl border border-line bg-panel/70 p-6 shadow-soft backdrop-blur md:mt-12">
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            { t: "Clear decisions", d: "Decision rights and forums reduce rework and stalled approvals." },
+            { t: "Delivery momentum", d: "A practical cadence keeps teams aligned and moving." },
+            { t: "Visible progress", d: "Reporting is linked to leadership decisions, not status theatre." },
+          ].map((x) => (
+            <div key={x.t}>
+              <p className="text-sm font-semibold text-ink">{x.t}</p>
+              <p className="mt-2 text-sm text-muted">{x.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
