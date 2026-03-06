@@ -78,4 +78,18 @@ html {
   height: 1px;
   background: linear-gradient(to right, transparent, rgb(var(--line)), transparent);
 }
+/* section separators */
+.section-divider {
+  position: relative;
+}
+.section-divider:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(1100px, 92%);
+  transform: translateX(-50%);
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgb(var(--line)), transparent);
+}
 

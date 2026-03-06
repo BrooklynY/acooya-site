@@ -105,7 +105,7 @@ export default function ServicesPreview() {
   ];
 
   return (
-    <section className="mx-auto mt-16 max-w-6xl px-5 md:mt-20 md:px-8">
+    <section className="section-divider mx-auto mt-16 max-w-6xl px-5 md:mt-20 md:px-8">
       {/* Header row */}
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl">
